@@ -358,48 +358,41 @@ struct Alarm
 
 // #endif // ALARM_HH
 ////////////////////////////////////////////////////////////////////////////////
-// #ifndef ALARMSYSTEM_HH
-// #define ALARMSYSTEM_HH
-
-//interface includes
-#include "Alarm.hh"
-#include "Alarm.hh"
-#include "Alarm.hh"
-
-
-//component includes
-
+#ifndef ALARMSYSTEM_HH
+#define ALARMSYSTEM_HH
 
 #include <iostream>
-#include <dzn/locator.hh>
 
-namespace dzn {
-  struct locator;
-  struct runtime;
-}
+#include <dzn/locator.hh>
+#include <dzn/runtime.hh>
+#include <dzn/pump.hh>
+
+#include "Alarm.hh"
+
+
 
 
 struct AlarmSystem
 {
   dzn::meta dzn_meta;
-  dzn::runtime& dzn_rt;
-  dzn::locator const& dzn_locator;
+  dzn::runtime dzn_rt;
 
-
+  dzn::locator dzn_locator;
   ::Alarm alarm;
 
-  ::IConsole& console;
 
-  ::ISensor& sensor;
-  ::ISiren& siren;
+  ::IConsole console;
 
+  ::ISensor sensor;
+  ::ISiren siren;
+
+  dzn::pump dzn_pump;
   AlarmSystem(const dzn::locator&);
   void check_bindings() const;
   void dump_tree(std::ostream& os=std::clog) const;
 };
 
-// #endif // ALARMSYSTEM_HH
-////////////////////////////////////////////////////////////////////////////////
+#endif // ALARMSYSTEM_HH
 
 #endif // INTERFACE_ONLY
 #endif // Alarm_HH

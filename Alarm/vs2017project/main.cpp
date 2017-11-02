@@ -53,8 +53,17 @@ namespace Foo
 
     as.check_bindings();
 
+
     as.alarm.console.in.arm();
-    as.alarm.sensor.out.triggered();
+    std::thread t([&] {
+      std::this_thread::sleep_for(std::chrono::seconds(1));
+      as.alarm.sensor.out.triggered();
+    });
+
+    t.join();
+
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+
   }
 } // namespace Foo
 

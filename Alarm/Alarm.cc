@@ -119,28 +119,50 @@ void Alarm::dump_tree(std::ostream& os) const
 
 #include "Alarm.hh"
 
-#include <dzn/runtime.hh>
 
-
-AlarmSystem::AlarmSystem(const dzn::locator& dzn_locator)
+AlarmSystem::AlarmSystem(const dzn::locator& locator)
 : dzn_meta{"","AlarmSystem",0,0,{&sensor.meta,&siren.meta},{&alarm.dzn_meta},{[this]{console.check_bindings();},[this]{sensor.check_bindings();},[this]{siren.check_bindings();}}}
-, dzn_rt(dzn_locator.get<dzn::runtime>())
-, dzn_locator(dzn_locator)
+, dzn_locator(locator.clone().set(dzn_rt).set(dzn_pump))
 
 
 , alarm(dzn_locator)
 
 , console(alarm.console)
 , sensor(alarm.sensor), siren(alarm.siren)
+, dzn_pump()
 {
+  alarm.console.meta.requires.port = "console";
+
+  alarm.sensor.meta.provides.port = "sensor";
+  alarm.siren.meta.provides.port = "siren";
+
+
+  console.in.arm = [&] () {
+    return dzn::shell(dzn_pump, [&] {return alarm.console.in.arm();});
+  };
+  console.in.disarm = [&] () {
+    return dzn::shell(dzn_pump, [&] {return alarm.console.in.disarm();});
+  };
+
+  sensor.out.triggered = [&] () {
+    return dzn_pump([&] {return alarm.sensor.out.triggered();});
+  };
+  sensor.out.disabled = [&] () {
+    return dzn_pump([&] {return alarm.sensor.out.disabled();});
+  };
+
+  alarm.console.out.detected = std::ref(console.out.detected);
+  alarm.console.out.deactivated = std::ref(console.out.deactivated);
+
+  alarm.sensor.in.enable = std::ref(sensor.in.enable);
+  alarm.sensor.in.disable = std::ref(sensor.in.disable);
+  alarm.siren.in.turnon = std::ref(siren.in.turnon);
+  alarm.siren.in.turnoff = std::ref(siren.in.turnoff);
 
 
   alarm.dzn_meta.parent = &dzn_meta;
   alarm.dzn_meta.name = "alarm";
 
-
-
-  dzn::rank(console.meta.provides.meta, 0);
 
 }
 
@@ -152,5 +174,3 @@ void AlarmSystem::dump_tree(std::ostream& os) const
 {
   dzn::dump_tree(os, &dzn_meta);
 }
-
-////////////////////////////////////////////////////////////////////////////////
