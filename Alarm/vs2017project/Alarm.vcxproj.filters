@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Dezyne">
+      <UniqueIdentifier>{0ebb0b0b-6498-421f-8978-ca0f9f813538}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Alarm.cc">
@@ -49,5 +52,10 @@
     <ClInclude Include="..\dzn\container.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Alarm.dzn">
+      <Filter>Dezyne</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -73,7 +73,7 @@ void Alarm::sensor_triggered ()
 {
   if (state == ::Alarm::State::Armed) 
   {
-    this->console.out.detected();
+    Detected();
     this->siren.in.turnon();
     sounding = true;
   }
@@ -100,6 +100,11 @@ void Alarm::sensor_disabled ()
   return;
 }
 
+void Alarm::Detected () 
+{
+  this->console.out.detected();
+  return ;
+}
 
 void Alarm::check_bindings() const
 {

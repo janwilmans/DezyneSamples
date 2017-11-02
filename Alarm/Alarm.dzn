@@ -127,6 +127,11 @@ component Alarm
     State state = State.Disarmed;
     bool sounding = false;
 
+    void Detected()
+    {
+      console.detected();
+    }
+
     [state.Disarmed]
     {
       on console.arm():         { sensor.enable(); state = State.Armed; }
@@ -134,7 +139,7 @@ component Alarm
     [state.Armed]
     {
       on console.disarm():      { sensor.disable(); state = State.Disarming; }
-      on sensor.triggered():    { console.detected();
+      on sensor.triggered():    { Detected();
                                   siren.turnon();
                                   sounding = true;
                                 }
@@ -161,6 +166,7 @@ Undo the commenting, press Update and re-run verification.
           }
     }
   }
+
 }
 
 component AlarmSystem {

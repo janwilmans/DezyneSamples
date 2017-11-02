@@ -329,6 +329,7 @@ struct Alarm
   void sensor_triggered ();
   void sensor_disabled ();
 
+  void Detected ();
 };
 
 // #endif // ALARM_HH

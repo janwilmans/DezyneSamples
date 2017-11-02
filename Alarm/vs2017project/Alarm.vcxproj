@@ -34,6 +34,9 @@
     <ClInclude Include="..\dzn\pump.hh" />
     <ClInclude Include="..\dzn\runtime.hh" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Alarm.dzn" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{4A969C98-D0EC-47EC-8727-12C0B391B97F}</ProjectGuid>
