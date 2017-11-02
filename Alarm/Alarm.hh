@@ -21,6 +21,7 @@
 #include <cassert>
 
 
+
 struct IConsole
 {
 #ifndef ENUM_IConsole_State

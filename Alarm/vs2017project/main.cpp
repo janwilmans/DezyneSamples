@@ -4,6 +4,8 @@
 #include "Alarm.hh"
 #include "stringbuilder.h"
 
+// dzn code -l c++ -s Alarm Alarm.dzn
+
 namespace Foo
 {
   long thread_id()
@@ -19,7 +21,6 @@ namespace Foo
   {
     return fusion::stringbuilder() << " (tid: " << thread_id() << ")";
   }
-
 
   void main()
   {
