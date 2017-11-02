@@ -12,12 +12,12 @@ namespace dzn
 
   void trace_in(std::ostream& os, port::meta const& m, const char* e)
   {
-    os << path(m.requires.meta, m.requires.port) << "." << e << " -> "
+    os << path(m.requires.meta, m.requires.port) << "." << e << " -> [trace_in] "
        << path(m.provides.meta, m.provides.port) << "." << e;
   }
   void trace_out(std::ostream& os, port::meta const& m, const char* e)
   {
-    os << path(m.provides.meta, m.provides.port) << "." << e << " -> "
+    os << path(m.provides.meta, m.provides.port) << "." << e << " -> [trace_out] "
        << path(m.requires.meta, m.requires.port) << "." << e;
   }
 
