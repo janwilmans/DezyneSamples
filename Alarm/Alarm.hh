@@ -338,7 +338,7 @@ struct Alarm
 
   std::string sounding_to_string(bool s)
   {
-    return sounding ? "true" : "false";
+    return s ? "true" : "false";
   }
 
   void dump_state(std::ostream& os)

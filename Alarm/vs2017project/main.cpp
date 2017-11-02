@@ -1,10 +1,26 @@
-#include <dzn/locator.hh>
-#include <dzn/runtime.hh>
-#include "Alarm.hh"
+#include "dzn/locator.hh"
+#include "dzn/runtime.hh"
 #include <iostream>
+#include "Alarm.hh"
+#include "stringbuilder.h"
 
 namespace Foo
 {
+  long thread_id()
+  {
+#ifdef _WIN32
+    return ::Concurrency::details::platform::GetCurrentThreadId();
+#else
+    return pthread_self();
+#endif
+  }
+
+  std::string threadid()
+  {
+    return fusion::stringbuilder() << " (tid: " << thread_id() << ")";
+  }
+
+
   void main()
   {
     dzn::locator loc;
@@ -13,25 +29,25 @@ namespace Foo
     AlarmSystem as(loc);
 
     as.console.out.detected = [] {
-      std::cout << "Detected!\n";
+      std::cout << "Detected!" << threadid() << "\n";
     };
     as.console.out.deactivated = [] {
-      std::cout << "deactivated!\n";
+      std::cout << "deactivated!" << threadid() << "\n";
     };
 
     as.siren.in.turnon = [] {
-      std::cout << "siren on!\n";
+      std::cout << "siren on!" << threadid() << "\n";
     };
     as.siren.in.turnoff = [] {
-      std::cout << "siren off!\n";
+      std::cout << "siren off!" << threadid() << "\n";;
     };
 
     as.sensor.in.enable = [] {
-      std::cout << "sensor enabled\n";
+      std::cout << "sensor enabled" << threadid() << "\n";;
     };
 
     as.sensor.in.disable = [] {
-      std::cout << "sensor disabled\n";
+      std::cout << "sensor disabled" << threadid() << "\n";
     };
 
     as.check_bindings();
@@ -41,7 +57,7 @@ namespace Foo
   }
 } // namespace Foo
 
-int main(int argc, char* argv[])
+int main(int, char* [])
 {
   try
   {

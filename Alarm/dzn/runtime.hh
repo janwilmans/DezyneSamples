@@ -8,6 +8,7 @@
 #include <map>
 #include <queue>
 #include <tuple>
+#include <future>
 
 inline std::string to_string(bool b){return b ? "true" : "false";}
 inline std::string to_string(int i){return std::to_string(i);}
@@ -96,6 +97,11 @@ namespace dzn
   void port_block(const locator&, void*);
   void port_release(const locator&, void*, std::function<void()>&);
 
+  inline long thread_id()
+  {
+    return ::Concurrency::details::platform::GetCurrentThreadId();
+  }
+
   template <typename C>
   struct call_helper
   {
@@ -114,7 +120,7 @@ namespace dzn
       trace_in(os, meta, event); 
       os << " ";
       c->dump_state(os);
-      os << std::endl;
+      os << " (tid: " << thread_id() << ")" << std::endl;
       if(c->dzn_rt.handling(c))
       {
         collateral_block(c->dzn_locator);
@@ -134,11 +140,13 @@ namespace dzn
       reply = ::to_string(r);
       return r;
     }
+
     ~call_helper()
     {
-      trace_out(os, meta, event); os << " ";
+      trace_out(os, meta, event); 
+      os << " ";
       c->dump_state(os);
-      os << " (" << reply.c_str() << ")" << std::endl;
+      os << " (" << reply.c_str() << ")" << " (tid: " << thread_id() << ")" << std::endl;
     }
   };
 
@@ -153,9 +161,10 @@ namespace dzn
   void call_out(C* c, L&& l, const dzn::port::meta& meta, const char* event)
   {
     auto& os = c->dzn_locator.template get<typename std::ostream>();
-    trace_deferred(os, meta, event); os << " ";
+    trace_deferred(os, meta, event);
+    os << " ";
     c->dump_state(os);
-    os << std::endl;
+    os << " (tid: " << thread_id() << ")"<< std::endl;
     c->dzn_rt.defer(meta.provides.address, c, l);
   }
 }
