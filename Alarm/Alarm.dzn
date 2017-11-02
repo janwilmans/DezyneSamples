@@ -1,0 +1,177 @@
+//purpose: Show illegal behaviour in component
+
+/////////////////////////////////////////////////////////////////////////////
+// This example shows how an illegal behaviour is revealed when verifying a
+// Dezyne component and (in a commented out section) provides guidelines on how
+// to ensure that the reported problem does not occur anymore.
+///////////////////////////////////////////////////////////////////////////////
+
+// This is the interface between a Console and an Alarm system.
+// The Alarm can be armed and disarmed, and the status of the system after arming
+// is reported via the detected and deactivated events.
+interface IConsole
+{
+    in void arm();
+    in void disarm();
+
+    out void detected();
+    out void deactivated();
+
+  behaviour
+  {
+    enum State { Disarmed, Armed, Triggered, Disarming };
+    State state = State.Disarmed;
+
+    [state.Disarmed]
+    {
+      on arm:           state = State.Armed;
+      on disarm:        illegal;
+    }
+    [state.Armed]
+    {
+      on disarm:        state = State.Disarming;
+      on optional:    { detected; state = State.Triggered; }
+      on arm:           illegal;
+    }
+    [state.Triggered]
+    {
+      on disarm:        state = State.Disarming;
+      on arm:           illegal;
+    }
+    [state.Disarming]
+    {
+      on inevitable:  { deactivated; state = State.Disarmed; }
+      on arm,
+         disarm:        illegal;
+    }
+  }
+}
+
+// This is the interface to a (movement) sensor used in the Alarm system.
+// The Sensor can be enabled and disabled, and the status of the Sensor after enabling
+// is reported via the triggered and disabled events.
+interface ISensor
+{
+  in void enable();
+  in void disable();
+
+  out void triggered();
+  out void disabled();
+
+  behaviour
+  {
+    enum State { Disabled, Enabled, Disabling, Triggered };
+    State state = State.Disabled;
+
+    [state.Disabled]
+    {
+      on enable:        state = State.Enabled;
+      on disable:       illegal;
+    }
+    [state.Enabled]
+    {
+      on enable:        illegal;
+      on disable:       state = State.Disabling;
+      on optional:    { triggered; state = State.Triggered; }
+    }
+    [state.Disabling]
+    {
+      on enable,
+         disable:       illegal;
+      on inevitable:  { disabled; state = State.Disabled; }
+    }
+    [state.Triggered]
+    {
+      on enable:        illegal;
+      on disable:       state = State.Disabling;
+    }
+  }
+}
+
+// This is the interface to a siren used in the Alarm system.
+// The Siren can be turned on and can be turned off.
+interface ISiren
+{
+  in void turnon();
+  in void turnoff();
+
+  behaviour
+  {
+    enum State { Off, On };
+    State state = State.Off;
+
+    [state.Off]
+    {
+      on turnon:        state = State.On;
+      on turnoff:       illegal;
+    }
+    [state.On]
+    {
+      on turnon:       illegal;
+      on turnoff:       state = State.Off;
+    }
+  }
+}
+
+// Component specification for an Alarm system which implements a Console, and
+// uses a (movement) Sensor and a Siren
+component Alarm
+{
+    provides IConsole console;
+    requires ISensor sensor;
+    requires ISiren siren;
+
+  behaviour
+  {
+    enum State { Disarmed, Armed, Disarming };
+    State state = State.Disarmed;
+    bool sounding = false;
+
+    [state.Disarmed]
+    {
+      on console.arm():         { sensor.enable(); state = State.Armed; }
+    }
+    [state.Armed]
+    {
+      on console.disarm():      { sensor.disable(); state = State.Disarming; }
+      on sensor.triggered():    { console.detected();
+                                  siren.turnon();
+                                  sounding = true;
+                                }
+    }
+    [state.Disarming]
+    {
+      on sensor.disabled():
+          { [sounding]          { console.deactivated();
+/*
+If the next line is left commented out then an illegal behaviour is spotted;
+the Alarm makes an attempt to turn on the Siren when that is already turned on.
+(run Verify and check the Sequence Diagram).
+
+The problem can easily be solved by turning off the Siren when Disarming the Alarm.
+Undo the commenting, press Update and re-run verification.
+*/
+                                  siren.turnoff();
+                                  sounding = false;
+                                  state = State.Disarmed;
+                                }
+            [otherwise]         { console.deactivated();
+                                  state = State.Disarmed;
+                                }
+          }
+    }
+  }
+}
+
+component AlarmSystem {
+	provides IConsole console;
+    requires ISensor sensor;
+    requires ISiren siren;
+
+	system {
+		Alarm alarm;
+		console <=> alarm.console;
+		sensor <=> alarm.sensor;
+		siren <=> alarm.siren;
+	}
+}

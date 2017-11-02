@@ -1,0 +1,19 @@
+{
+    "version": "0.2.1",
+    "tasks": [
+        {
+            "taskName": "task-Alarm",
+            "appliesTo": "Alarm.dzn",
+            "type": "launch"
+        }
+    ],
+    {
+        "taskName": "List outputs",
+        "appliesTo": "*",
+        "type": "command",
+        "command": "${env.COMSPEC}",
+        "args": [
+            "dir ${outDir}"
+        ]
+    }
+}
