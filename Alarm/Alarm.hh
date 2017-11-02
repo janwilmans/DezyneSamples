@@ -18,7 +18,7 @@
 #include <dzn/meta.hh>
 
 #include <map>
-
+#include <cassert>
 
 
 struct IConsole
@@ -323,6 +323,29 @@ struct Alarm
     (void)m;
     return os << "[" << m.state <<", " << m.sounding <<"]" ;
   }
+
+  std::string state_to_string(::Alarm::State::type s)
+  {
+    switch (s)
+    {
+    case ::Alarm::State::Disarmed: return "Disarmed";
+    case ::Alarm::State::Armed: return "Armed";
+    case ::Alarm::State::Disarming:  return "Disarming";
+    default: assert(false && "illegal value for ::Alarm::State::type");
+    }
+    return "<undefined>";
+  }
+
+  std::string sounding_to_string(bool s)
+  {
+    return sounding ? "true" : "false";
+  }
+
+  void dump_state(std::ostream& os)
+  {
+    os << "[" << state_to_string(state) << ", " << sounding_to_string(sounding) << "]";
+  }
+
   private:
   void console_arm ();
   void console_disarm ();
