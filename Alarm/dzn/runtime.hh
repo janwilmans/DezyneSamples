@@ -97,11 +97,6 @@ namespace dzn
   void port_block(const locator&, void*);
   void port_release(const locator&, void*, std::function<void()>&);
 
-  inline long thread_id()
-  {
-    return ::Concurrency::details::platform::GetCurrentThreadId();
-  }
-
   template <typename C>
   struct call_helper
   {
@@ -117,10 +112,8 @@ namespace dzn
     , event(event)
     , reply("return")
     {
-      trace_in(os, meta, event); 
-      os << " " << *c;
-      //c->dump_state(os); // not implemented in the code-generator yet
-      os << " (tid: " << thread_id() << ")" << std::endl;
+      os << path(meta.requires.meta, meta.requires.port) << "." << event << " -> " 
+         << path(meta.provides.meta, meta.provides.port) << "." << event << " [enter] " << *c << "\n";
       if(c->dzn_rt.handling(c))
       {
         collateral_block(c->dzn_locator);
@@ -143,10 +136,8 @@ namespace dzn
 
     ~call_helper()
     {
-      trace_out(os, meta, event); 
-      os << " " << *c;
-      // c->dump_state(os); // not implemented in the code-generator yet
-      os << " (" << reply.c_str() << ")" << " (tid: " << thread_id() << ")" << std::endl;
+      os << path(meta.requires.meta, meta.requires.port) << "." << event << " <- "
+        << path(meta.provides.meta, meta.provides.port) << "." << event << " [leave] " << *c << " (" << reply.c_str() << ")\n";
     }
   };
 
@@ -161,11 +152,14 @@ namespace dzn
   void call_out(C* c, L&& l, const dzn::port::meta& meta, const char* event)
   {
     auto& os = c->dzn_locator.template get<typename std::ostream>();
-    trace_deferred(os, meta, event);
-    os << " " << *c;
-    //c->dump_state(os); // not implemented in the code-generator yet
-    os << " (tid: " << thread_id() << ")"<< std::endl;
+
+    os << path(meta.requires.meta, meta.requires.port) << "." << event << " -> "
+      << path(meta.provides.meta, meta.provides.port) << "." << event << " [enter] " << *c << "\n";
+
     c->dzn_rt.defer(meta.provides.address, c, l);
+
+    os << path(meta.requires.meta, meta.requires.port) << "." << event << " <- "
+      << path(meta.provides.meta, meta.provides.port) << "." << event << " [leave] " << *c << "\n";
   }
 }
 #endif //DZN_RUNTIME_HH
