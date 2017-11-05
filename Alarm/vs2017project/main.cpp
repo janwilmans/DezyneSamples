@@ -20,18 +20,18 @@ namespace Foo
 
   std::string postfix_threadid()
   {
-    return fusion::stringbuilder() << " (tid: " << thread_id() << ")";
+    return fusion::stringbuilder() << " (tid: " << thread_id() << ")\n";
   }
 
   void main()
   {
     auto f = [](const char* message) {
-      std::cout << message << postfix_threadid() << " << BLA\n";
+      std::cout << message << postfix_threadid();
     };
 
     dzn::locator loc;
     StreamLogger sl(f);
-    loc.set(sl);
+    loc.set(static_cast<std::ostream&>(sl));
 
     dzn::runtime rt;
     loc.set(rt);
