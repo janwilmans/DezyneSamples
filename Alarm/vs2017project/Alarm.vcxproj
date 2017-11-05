@@ -33,6 +33,7 @@
     <ClInclude Include="..\dzn\meta.hh" />
     <ClInclude Include="..\dzn\pump.hh" />
     <ClInclude Include="..\dzn\runtime.hh" />
+    <ClInclude Include="StreamLogger.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Alarm.dzn" />

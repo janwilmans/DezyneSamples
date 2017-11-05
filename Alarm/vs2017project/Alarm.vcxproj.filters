@@ -52,6 +52,9 @@
     <ClInclude Include="..\dzn\container.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StreamLogger.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Alarm.dzn">

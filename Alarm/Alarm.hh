@@ -18,7 +18,6 @@
 #include <dzn/meta.hh>
 
 #include <map>
-#include <cassert>
 
 
 
@@ -323,28 +322,6 @@ struct Alarm
   friend std::ostream& operator << (std::ostream& os, const Alarm& m)  {
     (void)m;
     return os << "[" << m.state <<", " << m.sounding <<"]" ;
-  }
-
-  std::string state_to_string(::Alarm::State::type s)
-  {
-    switch (s)
-    {
-    case ::Alarm::State::Disarmed: return "Disarmed";
-    case ::Alarm::State::Armed: return "Armed";
-    case ::Alarm::State::Disarming:  return "Disarming";
-    default: assert(false && "illegal value for ::Alarm::State::type");
-    }
-    return "<undefined>";
-  }
-
-  std::string sounding_to_string(bool s)
-  {
-    return s ? "true" : "false";
-  }
-
-  void dump_state(std::ostream& os)
-  {
-    os << "[" << state_to_string(state) << ", " << sounding_to_string(sounding) << "]";
   }
 
   private:

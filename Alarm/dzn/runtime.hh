@@ -118,8 +118,8 @@ namespace dzn
     , reply("return")
     {
       trace_in(os, meta, event); 
-      os << " ";
-      c->dump_state(os);
+      os << " " << *c;
+      //c->dump_state(os); // not implemented in the code-generator yet
       os << " (tid: " << thread_id() << ")" << std::endl;
       if(c->dzn_rt.handling(c))
       {
@@ -144,8 +144,8 @@ namespace dzn
     ~call_helper()
     {
       trace_out(os, meta, event); 
-      os << " ";
-      c->dump_state(os);
+      os << " " << *c;
+      // c->dump_state(os); // not implemented in the code-generator yet
       os << " (" << reply.c_str() << ")" << " (tid: " << thread_id() << ")" << std::endl;
     }
   };
@@ -162,8 +162,8 @@ namespace dzn
   {
     auto& os = c->dzn_locator.template get<typename std::ostream>();
     trace_deferred(os, meta, event);
-    os << " ";
-    c->dump_state(os);
+    os << " " << *c;
+    //c->dump_state(os); // not implemented in the code-generator yet
     os << " (tid: " << thread_id() << ")"<< std::endl;
     c->dzn_rt.defer(meta.provides.address, c, l);
   }

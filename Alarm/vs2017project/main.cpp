@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Alarm.hh"
 #include "stringbuilder.h"
+#include "StreamLogger.h"
 
 // dzn code -l c++ -s Alarm Alarm.dzn
 
@@ -17,53 +18,57 @@ namespace Foo
 #endif
   }
 
-  std::string threadid()
+  std::string postfix_threadid()
   {
     return fusion::stringbuilder() << " (tid: " << thread_id() << ")";
   }
 
   void main()
   {
+    auto f = [](const char* message) {
+      std::cout << message << postfix_threadid() << " << BLA\n";
+    };
+
     dzn::locator loc;
+    StreamLogger sl(f);
+    loc.set(sl);
+
     dzn::runtime rt;
     loc.set(rt);
+
     AlarmSystem as(loc);
 
-    as.console.out.detected = [] {
-      std::cout << "Detected!" << threadid() << "\n";
+    as.console.out.detected = [&] {
+      sl << "Detected!\n";
     };
-    as.console.out.deactivated = [] {
-      std::cout << "deactivated!" << threadid() << "\n";
-    };
-
-    as.siren.in.turnon = [] {
-      std::cout << "siren on!" << threadid() << "\n";
-    };
-    as.siren.in.turnoff = [] {
-      std::cout << "siren off!" << threadid() << "\n";;
+    as.console.out.deactivated = [&] {
+      sl << "deactivated!\n";
     };
 
-    as.sensor.in.enable = [] {
-      std::cout << "sensor enabled" << threadid() << "\n";;
+    as.siren.in.turnon = [&] {
+      sl << "siren on!\n";
+    };
+    as.siren.in.turnoff = [&] {
+      sl << "siren off!\n";
     };
 
-    as.sensor.in.disable = [] {
-      std::cout << "sensor disabled" << threadid() << "\n";
+    as.sensor.in.enable = [&] {
+      sl << "sensor enabled\n";
     };
 
+    as.sensor.in.disable = [&] {
+      sl << "sensor disabled\n";
+    };
     as.check_bindings();
 
-
-    as.alarm.console.in.arm();
+    as.console.in.arm();
     std::thread t([&] {
       std::this_thread::sleep_for(std::chrono::seconds(1));
-      as.alarm.sensor.out.triggered();
+      as.sensor.out.triggered();
     });
-
     t.join();
 
     std::this_thread::sleep_for(std::chrono::seconds(5));
-
   }
 } // namespace Foo
 
