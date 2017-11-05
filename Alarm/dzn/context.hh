@@ -16,9 +16,9 @@ namespace dzn
 class context
 {
   enum State {INITIAL, RELEASED, BLOCKED, FINAL};
-  inline std::string to_string(State s)
+  inline std::string to_string(State state)
   {
-    switch(s)
+    switch(state)
     {
     case INITIAL: return "INITIAL";
     case RELEASED: return "RELEASED";
@@ -98,7 +98,7 @@ public:
     std::unique_lock<std::mutex> lock(mutex);
     std::thread::id i = std::this_thread::get_id();
     if (m.find(i)==m.end())
-      m[i] = int(m.size() - 1);
+      m[i] = m.size() - 1;
     return m[i];
   }
   void finish()

@@ -8,7 +8,6 @@
 #include <map>
 #include <queue>
 #include <tuple>
-#include <future>
 
 inline std::string to_string(bool b){return b ? "true" : "false";}
 inline std::string to_string(int i){return std::to_string(i);}
@@ -17,7 +16,6 @@ namespace dzn
 {
   void trace_in(std::ostream&, port::meta const&, const char*);
   void trace_out(std::ostream&, port::meta const&, const char*);
-  void trace_deferred(std::ostream&, port::meta const&, const char*);
 
   inline void apply(const dzn::meta* m, const std::function<void(const dzn::meta*)>& f)
   {
@@ -119,13 +117,11 @@ namespace dzn
         collateral_block(c->dzn_locator);
       }
     }
-
     template <typename L, typename = typename std::enable_if<std::is_void<typename std::result_of<L()>::type>::value>::type>
     void operator()(L&& l)
     {
       c->dzn_rt.handle(c, l);
     }
-
     template <typename L, typename = typename std::enable_if<!std::is_void<typename std::result_of<L()>::type>::value>::type>
     auto operator()(L&& l) -> decltype(l())
     {
@@ -133,7 +129,6 @@ namespace dzn
       reply = ::to_string(r);
       return r;
     }
-
     ~call_helper()
     {
       os << path(meta.requires.meta, meta.requires.port) << "." << event << " <- "
@@ -152,7 +147,6 @@ namespace dzn
   void call_out(C* c, L&& l, const dzn::port::meta& meta, const char* event)
   {
     auto& os = c->dzn_locator.template get<typename std::ostream>();
-
     os << path(meta.requires.meta, meta.requires.port) << "." << event << " -> "
       << path(meta.provides.meta, meta.provides.port) << "." << event << " [enter] " << *c << "\n";
 

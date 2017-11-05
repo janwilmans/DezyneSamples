@@ -13,21 +13,13 @@ namespace dzn
   void trace_in(std::ostream& os, port::meta const& m, const char* e)
   {
     os << path(m.requires.meta, m.requires.port) << "." << e << " -> "
-      << path(m.provides.meta, m.provides.port) << "." << e << " [enter]";
+       << path(m.provides.meta, m.provides.port) << "." << e;
   }
-
   void trace_out(std::ostream& os, port::meta const& m, const char* e)
   {
-    os << path(m.requires.meta, m.requires.port) << "." << e << " <- "
-      << path(m.provides.meta, m.provides.port) << "." << e << " [leave]";
-  }
-
-  void trace_deferred(std::ostream& os, port::meta const& m, const char* e)
-  {
     os << path(m.provides.meta, m.provides.port) << "." << e << " -> "
-      << path(m.requires.meta, m.requires.port) << "." << e << " [deferred]";
+       << path(m.requires.meta, m.requires.port) << "." << e;
   }
-
 
   bool runtime::external(void* scope) {
     return (queues.find(scope) == queues.end());
