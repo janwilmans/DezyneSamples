@@ -1,1 +1,8 @@
 /Alarm/clang-format.exe
+.vs
+/Alarm/runtime
+/Alarm/generated
+*.sdf
+*.suo
+*.user
+*.opensdf
