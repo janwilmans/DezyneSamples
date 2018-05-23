@@ -46,7 +46,7 @@ echo.
 echo.    Ok. No tabs were found.
 echo.
 
-dzn --server=https://hosting.verum.com/ --user=dezynesamples.github@nullptr.nl -p hello < email.address
+call dzn --server=https://hosting.verum.com/ --user=dezynesamples.github@nullptr.nl -p hello < email.address
 
 :: Generate Code from Dzn files
 echo Generating source code for .dzn files ^(target Dezyne version [%version%]^):

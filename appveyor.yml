@@ -12,5 +12,5 @@ install:
   - cmd: Alarm\DezyneGenerateCode.bat
   
 test_script:
-  - cmd: msbuild Alarm\vs2017project\Alarm.sln
+  - cmd: msbuild Alarm\vs2013project\Alarm.sln
     
