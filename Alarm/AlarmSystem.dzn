@@ -1,0 +1,14 @@
+import Alarm.dzn;
+
+component AlarmSystem {
+    provides IConsole console;
+    requires ISensor sensor;
+    requires ISiren siren;
+
+    system {
+        Alarm alarm;
+        console <=> alarm.console;
+        sensor <=> alarm.sensor;
+        siren <=> alarm.siren;
+    }
+}

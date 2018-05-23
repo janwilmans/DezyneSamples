@@ -1,13 +1,15 @@
 image: Visual Studio 2013
 
+init:
+  - cmd: set
+  - cmd: node --version
+
 install:
   # Get the version of Node.js 
   - ps: Install-Product node 6.10.1 x64
-  - npm install -g dzn-2.7.0.tar.gz
+  - npm install -g ./dzn-2.7.0.tar.gz
+  - cmd: Alarm\DezyneGenerateCode.bat
   
 test_script:
-  - cmd: ECHO this is batch
-  - cmd: node --version
-  - cmd: Alarm\DezyneGenerateCode.bat
   - cmd: msbuild Alarm\vs2017project\Alarm.sln
     

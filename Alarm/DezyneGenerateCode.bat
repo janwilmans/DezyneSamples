@@ -5,7 +5,7 @@ cd %~dp0
 set generated_file_dirname=generated
 set runtime_dir_name=runtime
 set language=c++-msvc11
-set version=2.2.1
+set version=2.7.2
 ::set version=development
 
 :: install dezyne and update this path accordingly
@@ -73,6 +73,15 @@ for /f %%f in ('dir /b/s *System.dzn') do (
 )
 echo.
 
+:: Add copyright headers
+echo Adding copyright headers to generated files:
+echo.
+for /f %%f in ('dir /b/s %gendir%') do (
+    call :addheader %%f
+)
+echo.
+
+
 :: Download Dezyne Runtime
 echo Downloading Dezyne Runtime version [%version%]
 echo.
@@ -103,11 +112,10 @@ exit /b 0
 :addheader
     echo.    File: %generated_file_dirname%\%~nx1
     move /y %1 %tempfile% >nul
-    echo.// Copyright (c) 1995-%YYYY% by FEI Company> %1
+    echo.// Copyright (c) 1995-2018 by MyCompany %1
     echo.// All rights reserved. This file includes confidential and>> %1
-    echo.// proprietary information of FEI Company.>> %1
+    echo.// proprietary information of MyCompany.>> %1
     echo.>> %1
-    :: add pragma once to prevent TICS issues about dzn_include.h being before the header-guard
     if [.hh]==[%~x1%] (
       echo.#pragma once>> %1
       echo.>> %1
