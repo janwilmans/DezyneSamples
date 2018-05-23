@@ -13,7 +13,7 @@ set nodejs=%USERPROFILE%\node-v6.10.1-win-x64
 if not exist %nodejs%\. (
     echo Directory does not exist: %nodejs%
     echo # Node JS not found, either Dezyne is not installed or it contains a newer Node.js version
-    pause
+    ::pause
     exit /b 1
 )
 
@@ -40,7 +40,7 @@ for /f %%f in ('dir /b/s *.dzn') do (
         echo Found tabs in %%f!
         echo Please untabify your Dezyne models.
         echo.
-        pause
+        ::pause
         exit /b 1
     )
 )
@@ -82,7 +82,7 @@ echo.
 echo Done.
 echo.
 
-pause
+::pause
 exit /b 0
 
 :generate
