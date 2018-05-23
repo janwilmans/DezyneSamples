@@ -13,8 +13,6 @@ set nodejs=%USERPROFILE%\node-v6.10.1-win-x64
 if not exist %nodejs%\. (
     echo Directory does not exist: %nodejs%
     echo # Node JS not found, either Dezyne is not installed or it contains a newer Node.js version
-    ::pause
-    exit /b 1
 )
 
 ::Internal Settings

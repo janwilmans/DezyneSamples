@@ -5,8 +5,9 @@ init:
   - cmd: node --version
 
 install:
-  # Get the version of Node.js 
+  # Get the correct version of Node.js (will also uninstall 8.11.1 x86)
   - ps: Install-Product node 6.10.1 x64
+  - cmd: node --version
   - npm install -g ./Alarm/dzn-2.7.0.tar.gz
   - cmd: Alarm\DezyneGenerateCode.bat
   
