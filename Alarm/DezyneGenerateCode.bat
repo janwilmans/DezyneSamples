@@ -1,4 +1,5 @@
 @echo on
+pushd
 cd %~dp0
 
 ::Settings
@@ -91,6 +92,7 @@ echo.
 echo Done.
 echo.
 
+popd
 ::pause
 exit /b 0
 
