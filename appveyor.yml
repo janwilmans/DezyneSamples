@@ -7,7 +7,7 @@ init:
 install:
   # Get the version of Node.js 
   - ps: Install-Product node 6.10.1 x64
-  - npm install -g ./dzn-2.7.0.tar.gz
+  - npm install -g ./Alarm/dzn-2.7.0.tar.gz
   - cmd: Alarm\DezyneGenerateCode.bat
   
 test_script:
