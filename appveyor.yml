@@ -12,5 +12,7 @@ install:
   - cmd: Alarm\DezyneGenerateCode.bat
   
 test_script:
-  - cmd: msbuild Alarm\vs2013project\Alarm.sln
+  - cmd: Alarm\build.bat
     
+# to disable automatic builds (outside/after this script)
+build: off
