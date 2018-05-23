@@ -170,14 +170,14 @@ Undo the commenting, press Update and re-run verification.
 }
 
 component AlarmSystem {
-	provides IConsole console;
+    provides IConsole console;
     requires ISensor sensor;
     requires ISiren siren;
 
-	system {
-		Alarm alarm;
-		console <=> alarm.console;
-		sensor <=> alarm.sensor;
-		siren <=> alarm.siren;
-	}
+    system {
+        Alarm alarm;
+        console <=> alarm.console;
+        sensor <=> alarm.sensor;
+        siren <=> alarm.siren;
+    }
 }

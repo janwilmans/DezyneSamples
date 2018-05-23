@@ -1,4 +1,4 @@
-@echo off
+@echo on
 cd %~dp0
 
 ::Settings
@@ -70,20 +70,6 @@ echo Generating Exception Context Wrappers
 echo.
 for /f %%f in ('dir /b/s *System.dzn') do (
     call :generateECW %%f
-)
-echo.
-
-:: Generate MD5Signatures
-echo Generating MD5Signatures
-call DznGenerateMD5Signatures.bat > DznMD5Signatures.txt
-echo.
-
-:: Add copyright headers
-echo Adding copyright headers to generated files:
-echo.
-call :getyear
-for /f %%f in ('dir /b/s %gendir%') do (
-    call :addheader %%f
 )
 echo.
 

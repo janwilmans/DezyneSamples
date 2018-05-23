@@ -1,0 +1,9 @@
+
+image: Visual Studio 2017
+
+test_script:
+  - cmd: ECHO this is batch
+  - cmd: node --version
+  - cmd: Alarm\DezyneGenerateCode.bat
+  - cmd: msbuild Alarm
+    
