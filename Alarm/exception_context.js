@@ -92,7 +92,7 @@ var om = {
       default: return [];
     }
   },
-  events : function(o){
+  events: function (o) {
     switch(o.class)
     {
       case 'Interface': return o.events.elements;
@@ -206,7 +206,7 @@ struct @name@Wrapper {\n\
   @name@ impl;\n\
   @ports@\n\
   @name@Wrapper(const dzn::locator& l)\n\
-  : dzn_meta("","@name@Wrapper",0,{&impl.dzn_meta},{@ports_connected@})\n\
+  : dzn_meta{"","@name@Wrapper",0, 0, @port_meta@, {&impl.dzn_meta},{@ports_connected@}}\n\
   , impl(l)\n\
   , @ports_initializer_list@\
   {\n\
@@ -311,6 +311,7 @@ var code = {
 
     return animate('component', eval($({name: "om.name(o)",
                                         ports: "om.ports(o).map(code.port_decl).join('  ')",
+                                        port_meta: "om.ports(o).map(code.port_metadata)[1]",
                                         ports_connected:"om.ports(o).map(code.port_connected).join(',')",
                                         ports_initializer_list:"om.ports(o).map(code.port_def).join('  , ')",
                                         interfaces: "interfaces",
@@ -323,13 +324,17 @@ var code = {
   out_check_binding: function(o) {
     return 'if(!out.' + o.name + ') throw dzn::binding_error(meta, "out.' + o.name +'");\n';
   },
-  event: function(o) {
+  event: function (o) {
     return 'std::function<' + om.returntype(o) + '(' + om.formals(o).map(code.formal_type).join(',') + ')> ' + o.name + ';\n';
+  },
+  reftype: function(o) {
+      if (o.direction == 'out') return '&';
+      return '';
   },
   formal_type: function(o) {
     return code.extern(om.externs(ast).find(function(e) {
       return om.name(o.type) == om.name(e);
-    }));
+    })) + code.reftype(o);
   },
   formal: function(o) {
     return code.formal_type(o) + ' ' + om.name(o);
@@ -348,6 +353,9 @@ var code = {
     return o.direction == 'provides'
       ? om.name(o) + '({{"' + om.name(o) + '",this,&dzn_meta},{"' + om.name(o) + '",&impl,&impl.dzn_meta}})\n'
       : om.name(o) + '({{"' + om.name(o) + '",&impl,&impl.dzn_meta},{"' + om.name(o) + '",this,&dzn_meta}})\n';
+  },
+  port_metadata: function (o) {
+    return '{&' + om.name(o) + '.meta}';
   },
   port_connected: function(o) {
     return '[this]{' + om.name(o) + '.check_bindings();}';
@@ -375,5 +383,5 @@ if(model.length == 0) {
   model = om.components(ast);
 }
 if(model.length) {
-  process.stdout.write(code.component(ast, model[model.length - 1]));
+    process.stdout.write(code.component(ast, model[model.length - 1]));
 }
