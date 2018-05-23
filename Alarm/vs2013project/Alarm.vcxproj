@@ -99,7 +99,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../runtime/c++-msvc11</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../runtime/c++-msvc11;$(ProjectDir)/../generated;$(ProjectDir)/..</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -109,7 +109,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../runtime/c++-msvc11</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../runtime/c++-msvc11;$(ProjectDir)/../generated;$(ProjectDir)/..</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -123,7 +123,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../runtime/c++-msvc11</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../runtime/c++-msvc11;$(ProjectDir)/../generated;$(ProjectDir)/..</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
