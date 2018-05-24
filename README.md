@@ -25,9 +25,11 @@ The status below indicates the status of building the DezyneSamples Alarm projec
 
 ## Overall build status
 
->>> 
-[![Build status](https://ci.appveyor.com/api/projects/status/0s2ncnqubg2ksesb/branch/master?svg=true)](https://ci.appveyor.com/project/janwilmans/dezynesamples) <<<
+------------------
+[![Build status](https://ci.appveyor.com/api/projects/status/0s2ncnqubg2ksesb/branch/master?svg=true)](https://ci.appveyor.com/project/janwilmans/dezynesamples)
 
+------------------
+There should be a badge between the two lines.
 
 
 
