@@ -1,7 +1,8 @@
 #include "dzn/locator.hh"
 #include "dzn/runtime.hh"
 #include <iostream>
-#include "Alarm.hh"
+#include <thread>
+#include "AlarmSystem_exception_forwarding.hh"
 #include "stringbuilder.h"
 #include "StreamLogger.h"
 
@@ -9,18 +10,9 @@
 
 namespace Foo
 {
-  long thread_id()
-  {
-#ifdef _WIN32
-    return ::Concurrency::details::platform::GetCurrentThreadId();
-#else
-    return pthread_self();
-#endif
-  }
-
   std::string postfix_threadid()
   {
-    return fusion::stringbuilder() << " (tid: " << thread_id() << ")\n";
+    return fusion::stringbuilder() << " (tid: " << std::this_thread::get_id() << ")\n";
   }
 
   void main()
@@ -36,7 +28,7 @@ namespace Foo
     dzn::runtime rt;
     loc.set(rt);
 
-    AlarmSystem as(loc);
+    AlarmSystemWrapper as(loc);
 
     as.console.out.detected = [&] {
       sl << "Detected!\n";
@@ -68,6 +60,7 @@ namespace Foo
     });
     t.join();
 
+    std::cout << "sleep 5 seconds\n";
     std::this_thread::sleep_for(std::chrono::seconds(5));
   }
 } // namespace Foo

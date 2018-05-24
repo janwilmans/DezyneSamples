@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{567335be-aa36-4cc5-b846-93c93143dcfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{ff102860-08c0-4ed2-a51f-352c0b945eaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dezyne Files">
+      <UniqueIdentifier>{3d2f3202-13b5-4708-814a-c27ed2775725}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\container.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\context.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\coroutine.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\locator.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\meta.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\pump.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\runtime.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StreamLogger.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\generated\Alarm.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\generated\AlarmSystem.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\generated\AlarmSystem_exception_forwarding.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\runtime\c++-msvc11\pump.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\runtime\c++-msvc11\runtime.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\generated\Alarm.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\generated\AlarmSystem.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Alarm.dzn">
+      <Filter>Dezyne Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

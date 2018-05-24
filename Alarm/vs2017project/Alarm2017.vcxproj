@@ -19,20 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Alarm.cc" />
-    <ClCompile Include="..\pump.cc" />
-    <ClCompile Include="..\runtime.cc" />
+    <ClCompile Include="..\generated\Alarm.cc" />
+    <ClCompile Include="..\generated\AlarmSystem.cc" />
+    <ClCompile Include="..\runtime\c++-msvc11\pump.cc" />
+    <ClCompile Include="..\runtime\c++-msvc11\runtime.cc" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Alarm.hh" />
-    <ClInclude Include="..\dzn\container.hh" />
-    <ClInclude Include="..\dzn\context.hh" />
-    <ClInclude Include="..\dzn\coroutine.hh" />
-    <ClInclude Include="..\dzn\locator.hh" />
-    <ClInclude Include="..\dzn\meta.hh" />
-    <ClInclude Include="..\dzn\pump.hh" />
-    <ClInclude Include="..\dzn\runtime.hh" />
+    <ClInclude Include="..\generated\Alarm.hh" />
+    <ClInclude Include="..\generated\AlarmSystem.hh" />
+    <ClInclude Include="..\generated\AlarmSystem_exception_forwarding.hh" />
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\container.hh" />
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\context.hh" />
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\coroutine.hh" />
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\locator.hh" />
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\meta.hh" />
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\pump.hh" />
+    <ClInclude Include="..\runtime\c++-msvc11\dzn\runtime.hh" />
     <ClInclude Include="StreamLogger.h" />
   </ItemGroup>
   <ItemGroup>
@@ -40,7 +43,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{4A969C98-D0EC-47EC-8727-12C0B391B97F}</ProjectGuid>
+    <ProjectGuid>{25FA3971-6BB1-46E5-92C1-3FE726332A0E}</ProjectGuid>
     <RootNamespace>Alarm</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -95,7 +98,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../runtime/c++-msvc11;$(ProjectDir)/../generated;$(ProjectDir)/..</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -103,7 +106,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../runtime/c++-msvc11;$(ProjectDir)/../generated;$(ProjectDir)/..</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -113,7 +116,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../runtime/c++-msvc11;$(ProjectDir)/../generated;$(ProjectDir)/..</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -127,7 +130,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../runtime/c++-msvc11;$(ProjectDir)/../generated;$(ProjectDir)/..</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

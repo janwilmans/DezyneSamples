@@ -1,4 +1,4 @@
-image: Visual Studio 2017
+image: Visual Studio 2013
 
 init:
   - cmd: set
@@ -11,7 +11,10 @@ install:
   - npm install -g ./Alarm/dzn-2.7.0.tar.gz
   - cd %APPVEYOR_BUILD_FOLDER%
   - Alarm\DezyneGenerateCode.bat
+  - cd %APPVEYOR_BUILD_FOLDER%
   
-# switch to disable automatic builds (outside/after this script)
-# set to 'off' in case you trigger your build explicitly from this script
-build: on
+test_script:
+  - Alarm\build.bat
+    
+# to disable automatic builds (outside/after this script)
+build: off

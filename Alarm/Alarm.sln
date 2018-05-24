@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27705.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Alarm", "Alarm.vcxproj", "{4A969C98-D0EC-47EC-8727-12C0B391B97F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Alarm", "vs2013project\Alarm.vcxproj", "{4A969C98-D0EC-47EC-8727-12C0B391B97F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Alarm2017", "vs2017project\Alarm2017.vcxproj", "{25FA3971-6BB1-46E5-92C1-3FE726332A0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,19 @@ Global
 		{4A969C98-D0EC-47EC-8727-12C0B391B97F}.Release|Win32.Build.0 = Release|Win32
 		{4A969C98-D0EC-47EC-8727-12C0B391B97F}.Release|x64.ActiveCfg = Release|x64
 		{4A969C98-D0EC-47EC-8727-12C0B391B97F}.Release|x64.Build.0 = Release|x64
+		{25FA3971-6BB1-46E5-92C1-3FE726332A0E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{25FA3971-6BB1-46E5-92C1-3FE726332A0E}.Debug|Win32.Build.0 = Debug|Win32
+		{25FA3971-6BB1-46E5-92C1-3FE726332A0E}.Debug|x64.ActiveCfg = Debug|x64
+		{25FA3971-6BB1-46E5-92C1-3FE726332A0E}.Debug|x64.Build.0 = Debug|x64
+		{25FA3971-6BB1-46E5-92C1-3FE726332A0E}.Release|Win32.ActiveCfg = Release|Win32
+		{25FA3971-6BB1-46E5-92C1-3FE726332A0E}.Release|Win32.Build.0 = Release|Win32
+		{25FA3971-6BB1-46E5-92C1-3FE726332A0E}.Release|x64.ActiveCfg = Release|x64
+		{25FA3971-6BB1-46E5-92C1-3FE726332A0E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86EE8D67-F030-4802-805F-3B4979189A7A}
 	EndGlobalSection
 EndGlobal
