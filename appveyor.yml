@@ -9,10 +9,12 @@ install:
   - ps: Install-Product node 6.10.1 x64
   - cmd: node --version
   - npm install -g ./Alarm/dzn-2.7.0.tar.gz
-  - cmd: Alarm\DezyneGenerateCode.bat
+  - pushd 
+  - Alarm\DezyneGenerateCode.bat
+  - popd
   
 test_script:
-  - cmd: Alarm\build.bat
+  - Alarm\build.bat
     
 # to disable automatic builds (outside/after this script)
 build: off
