@@ -16,4 +16,4 @@ msbuild vs2013project\Alarm.sln /p:Configuration=Release /t:Rebuild /logger:"C:\
 
 set language=c++
 set version=development
-msbuild vs2017project\Alarm.sln /p:Configuration=Release /t:Rebuild /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+msbuild vs2017project\Alarm2017.sln /p:Configuration=Release /t:Rebuild /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
