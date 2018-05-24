@@ -2,13 +2,6 @@
 pushd
 cd %~dp0
 
-::Settings
-set generated_file_dirname=generated
-set runtime_dir_name=runtime
-set language=c++-msvc11
-set version=2.7.2
-::set version=development
-
 :: install dezyne and update this path accordingly
 set nodejs=%USERPROFILE%\node-v6.10.1-win-x64
 if not exist %nodejs%\. (
