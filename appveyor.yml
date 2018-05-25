@@ -13,7 +13,7 @@ install:
 #  - Alarm\Build.bat
   - BuildTests.bat
   
-test:
+# run tests
   - ps RunTests.ps
   
 # switch to disable automatic builds (outside/after this script)
