@@ -14,7 +14,7 @@ install:
   - BuildTests.bat
   
 test:
-  - Tests\Release\Tests.exe  
+  - ps RunTests.ps
   
 # switch to disable automatic builds (outside/after this script)
 # set to 'off' in case you trigger your build explicitly from this script
