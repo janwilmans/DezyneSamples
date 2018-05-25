@@ -10,8 +10,8 @@ install:
   - cmd: node --version
   - npm install -g ./Alarm/dzn-2.7.0.tar.gz
   - cd %APPVEYOR_BUILD_FOLDER%
-#  - Alarm\Build.bat
-  - BuildTests.bat
+  - Alarm\Build.bat
+  - Tests\Build.bat
   
 # run tests
   - Tests\Release\Tests.exe -s -i -w NoTests -r junit -o junit-results.xml
