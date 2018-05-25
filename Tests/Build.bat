@@ -8,7 +8,7 @@ if [%APPVEYOR%]==[True] (
 
 set REBUILD_X86_RELEASE=/p:Platform="x86" /p:Configuration=Release /t:Rebuild
 
-msbuild Tests.sln %REBUILD_X86_RELEASE% /t:Rebuild %MSBUILDLOGGER%
+msbuild Tests.sln %REBUILD_X86_RELEASE% /t:Rebuild %MSBUILDLOGGER% > build.txt 2>&1
 
 if NOT [%APPVEYOR%]==[True] (
     Release\Tests.exe -s -i -w NoTests
