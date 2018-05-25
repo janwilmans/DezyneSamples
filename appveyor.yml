@@ -20,6 +20,7 @@ install:
 #  - ps: Tests\UploadTestResults.ps1
 
 artifacts:
+  - cd %APPVEYOR_BUILD_FOLDER%
   - path: build.txt
     name: buildresult
 # switch to disable automatic builds (outside/after this script)
