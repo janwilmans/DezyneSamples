@@ -13,6 +13,9 @@ install:
 #  - Alarm\Build.bat
   - BuildTests.bat
   
+test:
+  - Tests\Release\Tests.exe  
+  
 # switch to disable automatic builds (outside/after this script)
 # set to 'off' in case you trigger your build explicitly from this script
 build: off

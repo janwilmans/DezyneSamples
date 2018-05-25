@@ -1,4 +1,5 @@
 @echo off
+SETLOCAL EnableDelayedExpansion 
 cd %~dp0
 
 if [%APPVEYOR%]==[True] (
