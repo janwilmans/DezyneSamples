@@ -3,8 +3,8 @@ cd %~dp0
 
 if [%APPVEYOR%]==[True] (
   SETLOCAL MSBUILDLOGGER /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-  SETLOCAL OUTPUT >build.txt 2>&1
-  SETLOCAL OUTPUT_APPEND >>build.txt 2>&1
+  SETLOCAL OUTPUT >%APPVEYOR_BUILD_FOLDER%\build.txt 2>&1
+  SETLOCAL OUTPUT_APPEND >>%APPVEYOR_BUILD_FOLDER%\build.txt 2>&1
 )
 
 set REBUILD_X86_RELEASE=/p:Platform="x86" /p:Configuration=Release /t:Rebuild
