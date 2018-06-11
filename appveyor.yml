@@ -19,6 +19,7 @@ install:
   - cd
   - dir
   - Tests.exe -s -i -w NoTests -r junit -o junit-results.xml
+  - dir
   - ps: Tests\UploadTestResults.ps1
 
 artifacts:
