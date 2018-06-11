@@ -15,9 +15,7 @@ install:
 # build and run tests
   - cd %APPVEYOR_BUILD_FOLDER%
   - Tests\Build.bat
-  - dir %APPVEYOR_BUILD_FOLDER%\Tests\Release
   - cd %APPVEYOR_BUILD_FOLDER%
-  - dir
   - ps: Tests\UploadTestResults.ps1
 
 artifacts:
