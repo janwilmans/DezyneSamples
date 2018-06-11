@@ -14,8 +14,8 @@ cd %~dp0\Release
 
 if [%APPVEYOR%]==[True] (
     Tests.exe -s -i -w NoTests -r junit -o junit-results.xml
-)
-else
-(
+) else (
     Tests.exe -s -i -w NoTests
 )
+
+exit /b 0
