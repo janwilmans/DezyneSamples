@@ -20,10 +20,10 @@ std::string readfile(const std::string& filename)
     return s;
 }
 
-TEST_CASE("Verify build results", "[build(s)]") {
+TEST_CASE("The number of builds should be 3", "[build(s)]") {
 
     int builds = 0;
-    auto lines = filterNoCase(uniq(sort(trim(split(readfile("..\\..\\Alarm\\build.txt"), '\n')))), "Build succeeded.");
+    auto lines = filterNoCase(trim(split(readfile("..\\..\\Alarm\\build.txt"), '\n')), "Build succeeded.");
     for (auto line : lines)
     {
         builds++;
@@ -31,7 +31,7 @@ TEST_CASE("Verify build results", "[build(s)]") {
     REQUIRE(builds == 3);
 }
 
-TEST_CASE( "Analyze warnings", "[warning(s)]" ) {
+TEST_CASE( "The number of warnings should be 0", "[warning(s)]" ) {
 
     int warnings = 0;
     auto lines = filterNoCase(uniq(sort(trim(split(readfile("..\\..\\Alarm\\build.txt"), '\n')))), "warning c");
