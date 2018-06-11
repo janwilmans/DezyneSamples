@@ -20,6 +20,17 @@ std::string readfile(const std::string& filename)
     return s;
 }
 
+TEST_CASE("Verify build results", "[build(s)]") {
+
+    int builds = 0;
+    auto lines = filterNoCase(uniq(sort(trim(split(readfile("..\\..\\Alarm\\build.txt"), '\n')))), "Build succeeded.");
+    for (auto line : lines)
+    {
+        builds++;
+    }
+    REQUIRE(builds == 3);
+}
+
 TEST_CASE( "Analyze warnings", "[warning(s)]" ) {
 
     int warnings = 0;

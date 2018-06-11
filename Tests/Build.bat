@@ -3,7 +3,7 @@ SETLOCAL EnableDelayedExpansion
 cd %~dp0
 
 if [%APPVEYOR%]==[True] (
-  SET MSBUILDLOGGER /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+  SET MSBUILDLOGGER=/logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 )
 
 set REBUILD_X86_RELEASE=/p:Platform="x86" /p:Configuration=Release /t:Rebuild
