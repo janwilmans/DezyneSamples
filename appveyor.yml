@@ -15,8 +15,9 @@ install:
   - Tests\Build.bat
   
 # run tests
-#  - cd %APPVEYOR_BUILD_FOLDER%
-#  - Tests\Release\Tests.exe -s -i -w NoTests -r junit -o junit-results.xml
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - Tests\Release\Tests.exe -s -i -w NoTests
+# -r junit -o junit-results.xml
 #  - ps: Tests\UploadTestResults.ps1
 
 artifacts:
