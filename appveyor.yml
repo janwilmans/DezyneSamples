@@ -13,16 +13,16 @@ install:
   - Alarm\Build.bat
   - cd %APPVEYOR_BUILD_FOLDER%
   - Tests\Build.bat
-  - cd %APPVEYOR_BUILD_FOLDER%
   
 # run tests
-  - cd %APPVEYOR_BUILD_FOLDER%
-  - Tests\Release\Tests.exe -s -i -w NoTests -r junit -o junit-results.xml
-  - ps: Tests\UploadTestResults.ps1
+#  - cd %APPVEYOR_BUILD_FOLDER%
+#  - Tests\Release\Tests.exe -s -i -w NoTests -r junit -o junit-results.xml
+#  - ps: Tests\UploadTestResults.ps1
 
 artifacts:
-  - path: build.txt
+  - path: Alarm\build.txt
     name: buildresult
+    
 # switch to disable automatic builds (outside/after this script)
 # set to 'off' in case you trigger your build explicitly from this script
 build: off

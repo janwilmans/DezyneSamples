@@ -1,4 +1,4 @@
-@echo off
+@echo on
 SETLOCAL EnableDelayedExpansion 
 cd %~dp0
 
@@ -10,6 +10,8 @@ set REBUILD_X86_RELEASE=/p:Platform="x86" /p:Configuration=Release /t:Rebuild
 
 msbuild Tests.sln %REBUILD_X86_RELEASE% %MSBUILDLOGGER%
 
+cd %~dp0\Release
+
 if NOT [%APPVEYOR%]==[True] (
-    Release\Tests.exe -s -i -w NoTests
+    Tests.exe -s -i -w NoTests
 )
