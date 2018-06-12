@@ -20,25 +20,65 @@ std::string readfile(const std::string& filename)
     return s;
 }
 
-TEST_CASE("The number of builds should be 3", "[build(s)]") {
-
-    int builds = 0;
-    auto lines = filterNoCase(trim(split(readfile("..\\..\\Alarm\\build.txt"), '\n')), "Build succeeded.");
-    for (auto line : lines)
-    {
-        builds++;
-    }
-    REQUIRE(builds == 3);
+std::vector<std::string> getFiles(const std::string& path)
+{
+	std::vector<std::string> result;
+	for (auto &p : fs::directory_iterator(path))
+		result.push_back(p.path().filename().string());
+	return result;
 }
 
-TEST_CASE( "The number of warnings should be 0", "[warning(s)]" ) {
+std::vector<std::string> prefixFilter(const std::vector<std::string>& input, const std::string& startWith)
+{
+	std::vector<std::string> result;
+	for (const auto &value : input)
+	{
+		if (value.find(startWith) != 0) continue;
+		result.push_back(value);
+	}
+	return result;
+}
 
-    int warnings = 0;
-    auto lines = filterNoCase(uniq(sort(trim(split(readfile("..\\..\\Alarm\\build.txt"), '\n')))), "warning c");
-    for (auto line: lines)
-    {
-        warnings++;
-        std::cerr << line << "\n";
-    }
-    REQUIRE(warnings == 0);
+std::string path = "..\\..\\Alarm";
+
+TEST_CASE("Check for 'Build succeeded.'", "buildcheck") 
+{
+	for (const auto& l : prefixFilter(getFiles(path), "buildoutput"))
+	{
+		auto fullpath = fs::path(path) / l;
+		auto content = readfile(fullpath.string());
+		SECTION(fullpath.string()) {
+			CHECK(content.empty() != true);
+			CHECK(contains(content, "Build succeeded.") == true);
+
+			if (!contains(content, "Build succeeded."))
+			{
+				auto lines = trim(split(content, '\n'));
+				for (auto line : lines)
+				{
+					std::cerr << line << "\n";
+				}
+			}
+		}
+	}
+}
+
+TEST_CASE( "Check for warnings", "buildcheck" ) 
+{
+	for (const auto& l : prefixFilter(getFiles(path), "buildoutput"))
+	{
+		auto fullpath = fs::path(path) / l;
+		auto content = readfile(fullpath.string());
+		SECTION(fullpath.string()) {
+			int warnings = 0;
+			auto lines = filterNoCase(uniq(sort(trim(split(content, '\n')))), "warning c");
+			for (auto line : lines)
+			{
+				warnings++;
+				std::cerr << line << "\n";
+			}
+			CHECK(warnings == 0);
+		}
+	}
+
 }
