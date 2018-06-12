@@ -51,8 +51,14 @@ for /f %%f in ('dir /b/s *.dzn') do (
 )
 echo.
 
+:: Delete code for Dzn Systems (TSS code for Systems generated in next step)
+echo Deleting source code for Dzn System files
+for /f %%f in ('dir /b/s %gendir%\*System.*') do (
+    del %%f
+)
+echo.
 :: Generate Thread-safe Shells
-echo Generating Thread Safe Shells
+echo Generating Thread Safe Shells for Dzn systems
 echo.
 for /f %%f in ('dir /b/s *System.dzn') do (
     call :generateTSS %%f
