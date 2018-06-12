@@ -56,7 +56,7 @@ TEST_CASE("Check for 'Build succeeded.'", "buildcheck")
 				auto lines = trim(split(content, '\n'));
 				for (auto line : lines)
 				{
-					std::cerr << line << "\n";
+					std::cerr << line << std::endl;	// intentional flush
 				}
 			}
 		}
@@ -75,7 +75,7 @@ TEST_CASE( "Check for warnings", "buildcheck" )
 			for (auto line : lines)
 			{
 				warnings++;
-				std::cerr << line << "\n";
+				std::cerr << line << std::endl; // intentional flush
 			}
 			CHECK(warnings == 0);
 		}
