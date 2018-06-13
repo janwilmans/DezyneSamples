@@ -19,8 +19,7 @@ install:
   - ps: Tests\UploadTestResults.ps1
 
 artifacts:
-  - path: Alarm\build.txt
-    name: buildresult
+  - path: Alarm\build*.txt
     
 # switch to disable automatic builds (outside/after this script)
 # set to 'off' in case you trigger your build explicitly from this script
