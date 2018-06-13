@@ -47,18 +47,20 @@ TEST_CASE("Check for 'Build succeeded.'", "buildcheck")
 	{
 		auto fullpath = fs::path(path) / l;
 		auto content = readfile(fullpath.string());
+
+		if (!contains(content, "Build succeeded."))
+		{
+			std::cerr << "Source: " << fullpath.string() << std::endl;
+			auto lines = trim(split(content, '\n'));
+			for (auto line : lines)
+			{
+				std::cerr << line << std::endl; // intentional flush
+			}
+		}
+
 		SECTION(fullpath.string()) {
 			CHECK(content.empty() != true);
 			CHECK(contains(content, "Build succeeded.") == true);
-
-			if (!contains(content, "Build succeeded."))
-			{
-				auto lines = trim(split(content, '\n'));
-				for (auto line : lines)
-				{
-					std::cerr << line << std::endl;	// intentional flush
-				}
-			}
 		}
 	}
 }
@@ -69,14 +71,17 @@ TEST_CASE( "Check for warnings", "buildcheck" )
 	{
 		auto fullpath = fs::path(path) / l;
 		auto content = readfile(fullpath.string());
+
+		int warnings = 0;
+		auto lines = filterNoCase(uniq(sort(trim(split(content, '\n')))), "warning c");
+		std::cerr << "Source: " << fullpath.string() << std::endl;
+		for (auto line : lines)
+		{
+			warnings++;
+			std::cerr << line << std::endl; // intentional flush
+		}
+
 		SECTION(fullpath.string()) {
-			int warnings = 0;
-			auto lines = filterNoCase(uniq(sort(trim(split(content, '\n')))), "warning c");
-			for (auto line : lines)
-			{
-				warnings++;
-				std::cerr << line << std::endl; // intentional flush
-			}
 			CHECK(warnings == 0);
 		}
 	}
