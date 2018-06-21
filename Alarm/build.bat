@@ -22,12 +22,15 @@ set version=2.7.2
 
 call DezyneGenerateCode.bat
 msbuild vs2013project\Alarm.sln %REBUILD_X86_RELEASE% %MSBUILDLOGGER% > buildoutput_272_msc11_2013.txt
+type buildoutput_272_msc11_2013.txt
 
 set version=development
 call DezyneGenerateCode.bat
 msbuild vs2013project\Alarm.sln %REBUILD_X86_RELEASE% %MSBUILDLOGGER% > buildoutput_dev_msc11_2013.txt
+type buildoutput_dev_msc11_2013.txt
 
 set language=c++
 set version=development
 msbuild vs2017project\Alarm2017.sln %REBUILD_X86_RELEASE% %MSBUILDLOGGER% > buildoutput_dev_cpp_2017.txt
+type buildoutput_dev_cpp_2017.txt
 
