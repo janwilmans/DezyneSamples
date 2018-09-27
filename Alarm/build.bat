@@ -18,19 +18,19 @@ set REBUILD_X86_RELEASE=/p:Platform="x86" /p:Configuration=Release /t:Rebuild
 set generated_file_dirname=generated
 set runtime_dir_name=runtime
 set language=c++-msvc11
-set version=2.7.2
+set version=2.8.0
 
 call DezyneGenerateCode.bat
-msbuild vs2013project\Alarm.sln %REBUILD_X86_RELEASE% %MSBUILDLOGGER% > buildoutput_272_msc11_2013.txt
+msbuild vs2013project\Alarm.sln %REBUILD_X86_RELEASE% %MSBUILDLOGGER% > buildoutput_280_msc11_2013.txt
 type buildoutput_272_msc11_2013.txt
 
-set version=2.8.0
+set version=development
 call DezyneGenerateCode.bat
 msbuild vs2013project\Alarm.sln %REBUILD_X86_RELEASE% %MSBUILDLOGGER% > buildoutput_dev_msc11_2013.txt
 type buildoutput_dev_msc11_2013.txt
 
 set language=c++
-set version=2.8.0
+set version=development
 msbuild vs2017project\Alarm2017.sln %REBUILD_X86_RELEASE% %MSBUILDLOGGER% > buildoutput_dev_cpp_2017.txt
 type buildoutput_dev_cpp_2017.txt
 
